@@ -33,7 +33,6 @@ class WordListAdapter : ListAdapter<Word, WordListAdapter.WordViewHolder>(WordsC
         bind(current.word)
     }
 
-
     class WordsComparator : DiffUtil.ItemCallback<Word>() {
         override fun areItemsTheSame(oldItem: Word, newItem: Word): Boolean {
             return oldItem === newItem
