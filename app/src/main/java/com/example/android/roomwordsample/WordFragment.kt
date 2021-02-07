@@ -1,14 +1,17 @@
 package com.example.android.roomwordsample
 
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.android.roomwordsample.databinding.FragmentWordBinding
 
@@ -28,12 +31,11 @@ class WordFragment : Fragment() {
     private var param2: String? = null
 
     private var _binding: FragmentWordBinding? = null
-
     private val binding get() = _binding!!
 
-//    private val wordViewModel: WordViewModel by viewModels {
-//        WordViewModelFactory(WordsApplication().repository)
-//    }
+    private val wordViewModel: WordViewModel by viewModels {
+        WordViewModelFactory((activity?.application as WordsApplication).repository)
+    }
 
     private lateinit var editWordView: EditText
 
@@ -60,45 +62,31 @@ class WordFragment : Fragment() {
 
         editWordView = binding.editWord
 
-//        wordViewModel.allWords.observe(viewLifecycleOwner, Observer { words ->
-//            words?.let {
-//
-//            }
-//        })
-
-
-//        wordViewModel.allWords.toString()
-
-
         binding.buttonSave.setOnClickListener {
-            val replyIntent = Intent()
             if (TextUtils.isEmpty(editWordView.text)) {
                 findNavController().navigate(R.id.action_newWordFragment2_to_mainFragment, null)
-//                setTargetFragment(Activity.RESULT_CANCELED, replyIntent)
+                Toast.makeText(
+                    context,
+                    R.string.empty_not_saved,
+                    Toast.LENGTH_LONG
+                ).show()
+                hideKeyboard(view)
             } else {
                 val word = editWordView.text.toString()
-                replyIntent.putExtra(EXTRA_REPLY, word)
+                wordViewModel.insert(Word(word))
                 findNavController().navigate(R.id.action_newWordFragment2_to_mainFragment, null)
-
-//                setTargetFragment(replyIntent)
+                hideKeyboard(view)
             }
-
-//            findNavController().navigate(R.id.action_newWordFragment2_to_mainFragment, null)
-
-//            activity?.finish()
         }
+    }
 
-//        binding.buttonSave.setOnClickListener {
-//            findNavController().navigate(R.id.action_newWordFragment2_to_mainFragment, null)
-//
-//        }
-
-
+    private fun hideKeyboard(view: View) {
+        val inputManager: InputMethodManager = view.context
+            .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     companion object {
-
-        const val EXTRA_REPLY = "com.example.android.wordlistsql.REPLY"
 
         /**
          * Use this factory method to create a new instance of

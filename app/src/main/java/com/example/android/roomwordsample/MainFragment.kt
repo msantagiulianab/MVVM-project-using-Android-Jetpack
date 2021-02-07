@@ -1,14 +1,17 @@
 package com.example.android.roomwordsample
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.roomwordsample.databinding.FragmentMainBinding
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,11 +31,9 @@ class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
-//    private val wordViewModel: WordViewModel by viewModels {
-//        WordViewModelFactory(WordsApplication().repository)
-//    }
-//
-//    private val newWordActivityRequestCode = 1
+    private val wordViewModel: WordViewModel by viewModels {
+        WordViewModelFactory((activity?.application as WordsApplication).repository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,43 +62,18 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val adapter = WordListAdapter()
-//        binding.recyclerview.adapter = adapter
-//        binding.recyclerview.layoutManager = LinearLayoutManager(context)
-//
-//        wordViewModel.allWords.observe(viewLifecycleOwner, Observer { words ->
-//            words?.let { adapter.submitList(it) }
-//        })
+        val adapter = WordListAdapter()
+        binding.recyclerview.adapter = adapter
+        binding.recyclerview.layoutManager = LinearLayoutManager(context)
+
+        wordViewModel.allWords.observe(viewLifecycleOwner, Observer { words ->
+            words?.let { adapter.submitList(it) }
+        })
 
         binding.fab.setOnClickListener {
-//            val intent = Intent(context, NewWordActivity::class.java)
-//            startActivityForResult(intent, newWordActivityRequestCode)
             findNavController().navigate(R.id.action_mainFragment_to_newWordFragment2)
         }
-
-        /**
-        requestCode: Int, resultCode: Int, data: Intent?
-         */
-
     }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-
-//        if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
-//            data?.getStringExtra(WordFragment.EXTRA_REPLY)?.let {
-//                val word = Word(it)
-//                wordViewModel.insert(word)
-//            }
-//        } else {
-//            Toast.makeText(
-//                context?.applicationContext,
-//                R.string.empty_not_saved,
-//                Toast.LENGTH_LONG
-//            ).show()
-//        }
-    }
-
 
     companion object {
         /**

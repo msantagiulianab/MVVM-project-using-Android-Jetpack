@@ -14,7 +14,4 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//    }
 }
