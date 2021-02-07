@@ -2,13 +2,15 @@ package com.example.android.roomwordsample
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.android.roomwordsample.databinding.FragmentMainBinding
+import com.example.android.roomwordsample.databinding.FragmentWordBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,22 +19,23 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [MainFragment.newInstance] factory method to
+ * Use the [WordFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MainFragment : Fragment() {
+class WordFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
-    private var _binding: FragmentMainBinding? = null
+    private var _binding: FragmentWordBinding? = null
+
     private val binding get() = _binding!!
 
 //    private val wordViewModel: WordViewModel by viewModels {
 //        WordViewModelFactory(WordsApplication().repository)
 //    }
-//
-//    private val newWordActivityRequestCode = 1
+
+    private lateinit var editWordView: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,71 +50,68 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_main,
-            container,
-            false
-        )
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_word, container, false)
 
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val adapter = WordListAdapter()
-//        binding.recyclerview.adapter = adapter
-//        binding.recyclerview.layoutManager = LinearLayoutManager(context)
-//
+        editWordView = binding.editWord
+
 //        wordViewModel.allWords.observe(viewLifecycleOwner, Observer { words ->
-//            words?.let { adapter.submitList(it) }
+//            words?.let {
+//
+//            }
 //        })
 
-        binding.fab.setOnClickListener {
-//            val intent = Intent(context, NewWordActivity::class.java)
-//            startActivityForResult(intent, newWordActivityRequestCode)
-            findNavController().navigate(R.id.action_mainFragment_to_newWordFragment2)
+
+//        wordViewModel.allWords.toString()
+
+
+        binding.buttonSave.setOnClickListener {
+            val replyIntent = Intent()
+            if (TextUtils.isEmpty(editWordView.text)) {
+                findNavController().navigate(R.id.action_newWordFragment2_to_mainFragment, null)
+//                setTargetFragment(Activity.RESULT_CANCELED, replyIntent)
+            } else {
+                val word = editWordView.text.toString()
+                replyIntent.putExtra(EXTRA_REPLY, word)
+                findNavController().navigate(R.id.action_newWordFragment2_to_mainFragment, null)
+
+//                setTargetFragment(replyIntent)
+            }
+
+//            findNavController().navigate(R.id.action_newWordFragment2_to_mainFragment, null)
+
+//            activity?.finish()
         }
 
-        /**
-        requestCode: Int, resultCode: Int, data: Intent?
-         */
-
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-
-//        if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
-//            data?.getStringExtra(WordFragment.EXTRA_REPLY)?.let {
-//                val word = Word(it)
-//                wordViewModel.insert(word)
-//            }
-//        } else {
-//            Toast.makeText(
-//                context?.applicationContext,
-//                R.string.empty_not_saved,
-//                Toast.LENGTH_LONG
-//            ).show()
+//        binding.buttonSave.setOnClickListener {
+//            findNavController().navigate(R.id.action_newWordFragment2_to_mainFragment, null)
+//
 //        }
-    }
 
+
+    }
 
     companion object {
+
+        const val EXTRA_REPLY = "com.example.android.wordlistsql.REPLY"
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment MainFragment.
+         * @return A new instance of fragment NewWordFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            MainFragment().apply {
+            WordFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
