@@ -35,7 +35,6 @@ class WordListAdapter(private val clickListener: (Word) -> Unit) :
         }
 
         fun bind(item: Word) {
-//            this.item = item
             binding.textView.text = item.word
             binding.textView.setOnClickListener { clickListener(item) }
         }

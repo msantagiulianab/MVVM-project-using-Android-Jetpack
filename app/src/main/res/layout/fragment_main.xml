@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:contentDescription="@string/add_word"
+            android:backgroundTint="@color/primaryColor"
             android:src="@drawable/ic_add_black_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -39,6 +40,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/fab"
             app:layout_constraintHorizontal_bias="0.106"
+            android:backgroundTint="@color/secondaryTextColor"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@android:drawable/ic_delete" />
 
