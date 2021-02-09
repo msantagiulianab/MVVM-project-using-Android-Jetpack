@@ -1,36 +1,49 @@
 package com.example.android.roomwordsample
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.roomwordsample.databinding.RecyclerviewItemBinding
 
-class WordListAdapter : ListAdapter<Word, WordListAdapter.WordViewHolder>(WordsComparator()) {
 
-    class WordViewHolder(val binding: RecyclerviewItemBinding) :
-        RecyclerView.ViewHolder(binding.root)
+class WordListAdapter(private val clickListener: (Word) -> Unit) :
+    ListAdapter<Word, WordListAdapter.WordViewHolder>(WordsComparator()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
-
-        return WordViewHolder(
-            RecyclerviewItemBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+    override fun onCreateViewHolder(parent: ViewGroup, position: Int): WordViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = RecyclerviewItemBinding.inflate(inflater, parent, false)
+        return WordViewHolder(binding, clickListener)
     }
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
+        holder.bind(getItem(position))
+    }
 
-        fun bind(text: String?) {
-            holder.binding.textView.text = text
+
+    class WordViewHolder(
+        private val binding: RecyclerviewItemBinding,
+        private val clickListener: (Word) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+
+        private lateinit var item: Word
+
+        init {
+            binding.textView.setOnClickListener(this)
         }
 
-        val current = getItem(position)
-        bind(current.word)
+        fun bind(item: Word) {
+//            this.item = item
+            binding.textView.text = item.word
+            binding.textView.setOnClickListener { clickListener(item) }
+        }
+
+        override fun onClick(v: View?) {
+            TODO("Not yet implemented")
+        }
+
     }
 
     class WordsComparator : DiffUtil.ItemCallback<Word>() {

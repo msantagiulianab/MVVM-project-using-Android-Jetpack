@@ -1,6 +1,7 @@
 package com.example.android.roomwordsample
 
 import androidx.lifecycle.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class WordViewModel(private val repository: WordRepository) : ViewModel() {
@@ -10,6 +11,15 @@ class WordViewModel(private val repository: WordRepository) : ViewModel() {
     fun insert(word: Word) = viewModelScope.launch {
         repository.insert(word)
     }
+
+    fun deleteItem(word: Word) = viewModelScope.launch(Dispatchers.IO) {
+        repository.deleteItem(word)
+    }
+
+    fun deleteAll() = viewModelScope.launch(Dispatchers.IO) {
+        repository.deleteAll()
+    }
+
 }
 
 class WordViewModelFactory(private val repository: WordRepository) : ViewModelProvider.Factory {

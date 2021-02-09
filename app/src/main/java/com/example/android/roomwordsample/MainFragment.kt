@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.roomwordsample.databinding.FragmentMainBinding
@@ -46,7 +45,7 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = DataBindingUtil.inflate(
             inflater,
@@ -62,18 +61,30 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = WordListAdapter()
+        val adapter = WordListAdapter { onItemClicked(it) }
         binding.recyclerview.adapter = adapter
         binding.recyclerview.layoutManager = LinearLayoutManager(context)
 
-        wordViewModel.allWords.observe(viewLifecycleOwner, Observer { words ->
-            words?.let { adapter.submitList(it) }
+        wordViewModel.allWords.observe(viewLifecycleOwner, { words ->
+            words?.let {
+                adapter.submitList(it)
+            }
         })
 
         binding.fab.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_newWordFragment2)
         }
+
+        binding.fabDelete.setOnClickListener {
+            wordViewModel.deleteAll()
+        }
+
     }
+
+    private fun onItemClicked(word: Word) {
+        wordViewModel.deleteItem(word)
+    }
+
 
     companion object {
         /**
@@ -94,4 +105,5 @@ class MainFragment : Fragment() {
                 }
             }
     }
+
 }
