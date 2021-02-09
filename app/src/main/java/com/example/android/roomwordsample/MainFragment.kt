@@ -1,5 +1,6 @@
 package com.example.android.roomwordsample
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -76,8 +77,28 @@ class MainFragment : Fragment() {
         }
 
         binding.fabDelete.setOnClickListener {
-            wordViewModel.deleteAll()
+            showDialog()
         }
+
+    }
+
+    private fun showDialog() {
+
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder.setTitle("The database will be cleared")
+        builder.setMessage("Are you sure?")
+
+        builder.setPositiveButton("OK") { dialog, _ ->
+            wordViewModel.deleteAll()
+            dialog.dismiss()
+        }
+
+        builder.setNegativeButton("Cancel") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.show()
 
     }
 
