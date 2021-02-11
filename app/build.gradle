@@ -74,6 +74,9 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
+    // DataStore
+    implementation "androidx.datastore:datastore-preferences:$rootProject.datastoreVersion"
+
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     implementation "com.squareup.retrofit2:converter-moshi:$rootProject.retrofitVersion"
