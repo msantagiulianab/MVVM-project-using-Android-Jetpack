@@ -14,4 +14,6 @@
     <string name="light">Light</string>
     <string name="dark">Dark</string>
     <string name="system">Default</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="switch_title">Switch</string>
 </resources>

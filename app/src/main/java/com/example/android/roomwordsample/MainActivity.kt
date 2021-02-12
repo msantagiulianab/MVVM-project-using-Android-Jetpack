@@ -3,15 +3,19 @@ package com.example.android.roomwordsample
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.SwitchCompat
 import com.example.android.roomwordsample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var settingDataStore: SettingDataStore
+    private val preferenceViewModel: PreferenceViewModel by viewModels {
+        PreferenceViewModelFactory((this.application as WordsApplication).prefManager)
+    }
 
-    private var isDarkMode = true
+    private var item: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,68 +23,46 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-
-        settingDataStore = SettingDataStore(this)
-
-
-//        observeUiPreferences()
-//        initViews()
-
     }
-
-
-//    private fun initViews() {
-////        val buttonLight = menuInflater.inflate(R.menu.menu_item).findViewById(R.id.light_selection, applicationContext)
-//
-////            .setOnClickListener {
-////                lifecycleScope.launch {
-////                    when (isDarkMode) {
-////                        true -> settingDataStore.setDarkMode(UiMode.LIGHT)
-////                        false -> settingDataStore.setDarkMode(UiMode.DARK)
-////                    }
-////                }
-////            }
-//    }
-//
-//    private fun observeUiPreferences() {
-//        settingDataStore.uiModeFlow.asLiveData().observe(this) { uiMode ->
-//            when (uiMode) {
-//                UiMode.LIGHT -> onLightMode()
-//                UiMode.DARK -> onDarkMode()
-//            }
-//        }
-//    }
-//
-//    private fun onLightMode() {
-//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-//        isDarkMode = false
-//
-//    }
-//
-//    private fun onDarkMode() {
-//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-//        isDarkMode = true
-//    }
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_item, menu)
+
+        item = menu.findItem(R.id.app_bar_switch)
+
+        item?.setActionView(R.layout.switch_item)
+
+        item?.actionView?.findViewById<SwitchCompat>(R.id.switch_button)
+            ?.setOnCheckedChangeListener { _, isChecked ->
+                when (isChecked) {
+                    false -> {
+                        preferenceViewModel.onDarkModeClick(UiTheme.LIGHT)
+                    }
+                    true -> {
+                        preferenceViewModel.onDarkModeClick(UiTheme.DARK)
+                    }
+                }
+            }
+
+        observeUIPreferences()
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        when (item.itemId) {
-            R.id.light_selection -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                isDarkMode = false
-            }
-            R.id.dark_selection -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                isDarkMode = true
+    private fun observeUIPreferences() {
+        preferenceViewModel.preferencesFlow.observe(this) { uiTheme ->
+            when (uiTheme!!) {
+                UiTheme.LIGHT -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    item?.actionView?.findViewById<SwitchCompat>(R.id.switch_button)?.isChecked =
+                        false
+                }
+                UiTheme.DARK -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    item?.actionView?.findViewById<SwitchCompat>(R.id.switch_button)?.isChecked =
+                        true
+                }
             }
         }
-        return isDarkMode
     }
 
 }

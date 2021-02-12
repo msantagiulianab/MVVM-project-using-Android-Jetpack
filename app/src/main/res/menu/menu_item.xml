@@ -6,12 +6,10 @@
     tools:context=".MainActivity">
 
     <item
-        android:id="@+id/light_selection"
-        android:title="Light"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/dark_selection"
-        android:title="Dark"
-        app:showAsAction="never" />
+        android:id="@+id/app_bar_switch"
+        android:title="@string/switch_title"
+        app:actionLayout="@layout/switch_item"
+        app:showAsAction="always" />
+
 
 </menu>

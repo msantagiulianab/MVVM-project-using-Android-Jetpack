@@ -18,25 +18,3 @@
         <item name="android:textAppearance">@android:style/TextAppearance.Medium</item>
     </style>
 </resources>
-
-
-    <!--    <?xml version="1.0" encoding="utf-8"?>-->
-    <!--<resources>-->
-
-    <!--&lt;!&ndash; Base application theme. &ndash;&gt;-->
-    <!--<style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">-->
-    <!--    &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-    <!--    <item name="colorPrimary">@color/primaryColor</item>-->
-    <!--    <item name="colorPrimaryDark">@color/primaryDarkColor</item>-->
-    <!--    <item name="colorAccent">@color/primaryLightColor</item>-->
-    <!--    <item name="background">@color/secondaryLightColor</item>-->
-    <!--    <item name="fontFamily">sans-serif</item>-->
-    <!--</style>-->
-
-    <!--<style name="word_title">-->
-    <!--    <item name="android:layout_marginBottom">8dp</item>-->
-    <!--    <item name="android:paddingLeft">8dp</item>-->
-    <!--    <item name="android:background">@color/primaryLightColor</item>-->
-    <!--    <item name="android:textAppearance">@android:style/TextAppearance.Medium</item>-->
-    <!--</style>-->
-    <!--</resources>-->
