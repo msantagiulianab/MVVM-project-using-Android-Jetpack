@@ -7,20 +7,48 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.android.roomwordsample.MainFragment"
+        android:name="com.example.android.roomwordsample.ui.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main">
         <action
-            android:id="@+id/action_mainFragment_to_newWordFragment2"
+            android:id="@+id/action_mainFragment_to_newWordFragment"
             app:destination="@id/wordFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_catsFragment"
+            app:destination="@id/catsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_marsOverviewFragment"
+            app:destination="@id/marsOverviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/wordFragment"
-        android:name="com.example.android.roomwordsample.WordFragment"
+        android:name="com.example.android.roomwordsample.ui.WordFragment"
         android:label="fragment_word"
         tools:layout="@layout/fragment_word">
         <action
-            android:id="@+id/action_newWordFragment2_to_mainFragment"
+            android:id="@+id/action_newWordFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/catsFragment"
+        android:name="com.example.android.roomwordsample.ui.CatsFragment"
+        android:label="NetworkFragment" />
+    <fragment
+        android:id="@+id/marsOverviewFragment"
+        android:name="com.example.android.roomwordsample.ui.MarsOverviewFragment"
+        android:label="MarsOverviewFragment">
+        <action
+            android:id="@+id/action_marsOverviewFragment_to_marsDetailFragment"
+            app:destination="@id/marsDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/marsDetailFragment"
+        android:name="com.example.android.roomwordsample.ui.MarsDetailFragment"
+        android:label="MarsDetailFragment">
+        <argument
+            android:name="selectedProperty"
+            app:argType="com.example.android.roomwordsample.network.apiMars.MarsProperty" />
+    </fragment>
+
+
 </navigation>

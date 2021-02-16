@@ -1,6 +1,10 @@
-package com.example.android.roomwordsample
+package com.example.android.roomwordsample.application
 
 import android.app.Application
+import com.example.android.roomwordsample.BuildConfig
+import com.example.android.roomwordsample.PreferencesManager
+import com.example.android.roomwordsample.database.WordRepository
+import com.example.android.roomwordsample.database.WordRoomDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import timber.log.Timber

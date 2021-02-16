@@ -16,4 +16,12 @@
     <string name="system">Default</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="switch_title">Switch</string>
+    <string name="go_api">Go Api</string>
+    <string name="article_image">Article Image</string>
+    <string name="type_rent">Rent</string>
+    <string name="type_sale">Sale</string>
+    <string name="display_type">For %s</string>
+    <string name="display_price_monthly_rental">$%,.0f/month</string>
+    <string name="display_price">$%,.0f</string>
+
 </resources>

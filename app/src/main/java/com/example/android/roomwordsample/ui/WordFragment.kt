@@ -1,4 +1,4 @@
-package com.example.android.roomwordsample
+package com.example.android.roomwordsample.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -13,6 +13,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.android.roomwordsample.R
+import com.example.android.roomwordsample.WordViewModel
+import com.example.android.roomwordsample.WordViewModelFactory
+import com.example.android.roomwordsample.application.WordsApplication
+import com.example.android.roomwordsample.database.Word
 import com.example.android.roomwordsample.databinding.FragmentWordBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -64,7 +69,7 @@ class WordFragment : Fragment() {
 
         binding.buttonSave.setOnClickListener {
             if (TextUtils.isEmpty(editWordView.text)) {
-                findNavController().navigate(R.id.action_newWordFragment2_to_mainFragment, null)
+                findNavController().navigate(R.id.action_newWordFragment_to_mainFragment, null)
                 Toast.makeText(
                     context,
                     R.string.empty_not_saved,
@@ -74,7 +79,7 @@ class WordFragment : Fragment() {
             } else {
                 val word = editWordView.text.toString()
                 wordViewModel.insert(Word(word))
-                findNavController().navigate(R.id.action_newWordFragment2_to_mainFragment, null)
+                findNavController().navigate(R.id.action_newWordFragment_to_mainFragment, null)
                 hideKeyboard(view)
             }
         }

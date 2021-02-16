@@ -1,4 +1,4 @@
-package com.example.android.roomwordsample
+package com.example.android.roomwordsample.database
 
 import androidx.annotation.WorkerThread
 import kotlinx.coroutines.flow.Flow

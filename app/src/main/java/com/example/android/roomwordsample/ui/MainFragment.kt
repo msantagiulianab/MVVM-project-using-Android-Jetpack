@@ -1,4 +1,4 @@
-package com.example.android.roomwordsample
+package com.example.android.roomwordsample.ui
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -10,7 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.android.roomwordsample.R
+import com.example.android.roomwordsample.WordViewModel
+import com.example.android.roomwordsample.WordViewModelFactory
+import com.example.android.roomwordsample.application.WordsApplication
+import com.example.android.roomwordsample.database.Word
 import com.example.android.roomwordsample.databinding.FragmentMainBinding
+import com.example.android.roomwordsample.ui.adapters.WordListAdapter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,11 +78,20 @@ class MainFragment : Fragment() {
         })
 
         binding.fab.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_newWordFragment2)
+            findNavController().navigate(R.id.action_mainFragment_to_newWordFragment)
         }
 
         binding.fabDelete.setOnClickListener {
             showDialog()
+        }
+
+        binding.fabNetwork.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_marsOverviewFragment)
+        }
+
+        binding.fabNetwork.setOnLongClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_catsFragment)
+            true
         }
 
     }

@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
+import com.example.android.roomwordsample.application.WordsApplication
 import com.example.android.roomwordsample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

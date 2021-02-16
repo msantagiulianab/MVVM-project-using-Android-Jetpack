@@ -1,6 +1,8 @@
 package com.example.android.roomwordsample
 
 import androidx.lifecycle.*
+import com.example.android.roomwordsample.database.Word
+import com.example.android.roomwordsample.database.WordRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

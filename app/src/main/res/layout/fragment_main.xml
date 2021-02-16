@@ -33,6 +33,19 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_network"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/go_api"
+            android:src="@drawable/ic_baseline_api_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/fab"
+            app:layout_constraintHorizontal_bias="0.461"
+            app:layout_constraintStart_toEndOf="@+id/fab_delete" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
