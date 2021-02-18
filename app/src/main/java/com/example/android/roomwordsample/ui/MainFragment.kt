@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,6 +18,7 @@ import com.example.android.roomwordsample.application.WordsApplication
 import com.example.android.roomwordsample.database.Word
 import com.example.android.roomwordsample.databinding.FragmentMainBinding
 import com.example.android.roomwordsample.ui.adapters.WordListAdapter
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,6 +42,7 @@ class MainFragment : Fragment() {
     private val wordViewModel: WordViewModel by viewModels {
         WordViewModelFactory((activity?.application as WordsApplication).repository)
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,10 +92,37 @@ class MainFragment : Fragment() {
             findNavController().navigate(R.id.action_mainFragment_to_marsOverviewFragment)
         }
 
+//        binding.fabNetwork.setOnClickListener {
+//            findNavController().navigate(R.id.action_mainFragment_to_newsFragment)
+//        }
+
         binding.fabNetwork.setOnLongClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_catsFragment)
             true
         }
+
+
+//        val itemTouchHelperCallback: ItemTouchHelper.SimpleCallback =
+//            object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+//                override fun onMove(
+//                    recyclerView: RecyclerView,
+//                    viewHolder: RecyclerView.ViewHolder,
+//                    target: RecyclerView.ViewHolder
+//                ): Boolean {
+//                    return false
+//                }
+//
+//                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//                    val position: Int = viewHolder.adapterPosition
+//
+//                    when(direction) {
+//                        ItemTouchHelper.RIGHT -> {
+//                            wordViewModel.deleteItem(adapter.getItemId(viewHolder.adapterPosition))
+//                        }
+//                    }
+//                }
+//            }
+
 
     }
 
@@ -116,9 +146,25 @@ class MainFragment : Fragment() {
 
     }
 
-    private fun onItemClicked(word: Word) {
-        wordViewModel.deleteItem(word)
+    private fun onItemClicked(item: Word) {
+
+        val searchWord: String = item.word.toString()
+        Toast.makeText(context, "News for $searchWord", Toast.LENGTH_SHORT).show()
+        val action = MainFragmentDirections.actionMainFragmentToNewsFragment(searchWord)
+        findNavController().navigate(action)
+
+//        wordViewModel.deleteItem(item)
     }
+
+//    private fun onItemLongClicked(item: Word): Boolean {
+//
+//        val searchWord: String = item.word.toString()
+//        Toast.makeText(context, "News for $searchWord", Toast.LENGTH_SHORT).show()
+//        val action = MainFragmentDirections.actionMainFragmentToNewsFragment(searchWord)
+//        findNavController().navigate(action)
+//        return true
+//    }
+
 
     companion object {
         /**

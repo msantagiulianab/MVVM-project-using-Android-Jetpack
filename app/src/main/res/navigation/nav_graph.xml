@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_mainFragment_to_marsOverviewFragment"
             app:destination="@id/marsOverviewFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_newsFragment"
+            app:destination="@id/newsFragment" />
     </fragment>
     <fragment
         android:id="@+id/wordFragment"
@@ -48,6 +51,14 @@
         <argument
             android:name="selectedProperty"
             app:argType="com.example.android.roomwordsample.network.apiMars.MarsProperty" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.example.android.roomwordsample.ui.NewsFragment"
+        android:label="NewsFragment">
+        <argument
+            android:name="searchWord"
+            app:argType="string" />
     </fragment>
 
 

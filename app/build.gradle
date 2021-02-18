@@ -89,6 +89,9 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
     implementation "com.squareup.picasso:picasso:$rootProject.picassoVersion"
 
+    //Skeleton View
+    implementation "com.faltenreich:skeletonlayout:$rootProject.skeletonVersion"
+
     // Logging
     implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
 
