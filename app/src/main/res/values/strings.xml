@@ -41,5 +41,12 @@
     <string name="text_login_mobile">We will send you an <b>One Time Password</b>\non this mobile number</string>
     <string name="login_otp_text">Enter the OTP sent to <b>+91-8604609572</b></string>
     <string name="verify_proceed"><![CDATA[VERIFY & PROCEED]]></string>
+    <string name="news">News</string>
+    <string name="jan_01_2020_01_00_am">Jan 01, 2020 | 01:00 am</string>
+    <string name="oops">Oops!</string>
+    <string name="please_check_your_internet_connection">Please check your Internet Connection</string>
+    <string name="try_again">Try Again</string>
+    <string name="outer_border">Outer border</string>
+    <string name="no_items_available">No items available</string>
 
 </resources>

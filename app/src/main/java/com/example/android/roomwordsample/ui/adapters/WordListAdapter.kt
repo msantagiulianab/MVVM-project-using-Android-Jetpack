@@ -3,63 +3,71 @@ package com.example.android.roomwordsample.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
+import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.android.roomwordsample.WordViewModel
 import com.example.android.roomwordsample.database.Word
 import com.example.android.roomwordsample.databinding.RecyclerviewItemBinding
+import com.example.android.roomwordsample.ui.MainFragmentDirections
 
 
-class WordListAdapter(
-    private val clickListener: (Word) -> Unit
-//                      private val longClickListener: (Word) -> Boolean
-) :
+class WordListAdapter(private val wordViewModel: WordViewModel) :
     ListAdapter<Word, WordListAdapter.WordViewHolder>(WordsComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): WordViewHolder {
+
         val inflater = LayoutInflater.from(parent.context)
         val binding = RecyclerviewItemBinding.inflate(inflater, parent, false)
         return WordViewHolder(
             binding,
-            clickListener
-//            longClickListener
+            wordViewModel
         )
     }
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
-        holder.bind(getItem(position))
+
+        holder.name.text = wordViewModel.allWords.value!![position].word
+        holder.versionName = wordViewModel.allWords.value!![position].word
     }
 
-
     class WordViewHolder(
-        private val binding: RecyclerviewItemBinding,
-        private val clickListener: (Word) -> Unit
-//        private val longClickListener: (Word) -> Boolean
+        binding: RecyclerviewItemBinding,
+        wordViewModel: WordViewModel
     ) : RecyclerView.ViewHolder(binding.root),
-        View.OnClickListener
-//        View.OnLongClickListener
-    {
+        View.OnClickListener,
+        View.OnLongClickListener {
+
+        var name: TextView = binding.textView
+        var versionName: String? = null
 
         init {
-            binding.textView.setOnClickListener(this)
-//            binding.textView.setOnLongClickListener(this)
-        }
 
-        fun bind(item: Word) {
-            binding.textView.text = item.word
-            binding.textView.setOnClickListener { clickListener(item) }
-//            binding.textView.setOnLongClickListener { longClickListener(item)}
+            binding.textView.setOnClickListener { v ->
+                val searchWord: String = wordViewModel.allWords.value!![adapterPosition].word
+                val action = MainFragmentDirections.actionMainFragmentToNewsFragment(searchWord)
+                Toast.makeText(v.context, "News for $searchWord", Toast.LENGTH_SHORT).show()
+                findNavController(v).navigate(action)
+            }
+
+            binding.textView.setOnLongClickListener { v ->
+                Toast.makeText(v.context, "Deleted: $versionName", Toast.LENGTH_SHORT).show()
+                wordViewModel.deleteItem(wordViewModel.allWords.value!![adapterPosition])
+                true
+            }
         }
 
         override fun onClick(v: View?) {
             TODO("Not yet implemented")
         }
 
-//        override fun onLongClick(v: View?): Boolean {
-//            TODO("Not yet implemented")
-//            return true
-//        }
-
+        override fun onLongClick(v: View?): Boolean {
+            TODO("Not yet implemented")
+            return true
+        }
 
     }
 

@@ -100,9 +100,7 @@ class CatsFragment : Fragment() {
                     Toast.makeText(context, "Something wrong!", Toast.LENGTH_SHORT).show()
                 }
 
-
             }
-
 
         }
     }

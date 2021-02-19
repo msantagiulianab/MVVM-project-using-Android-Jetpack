@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_mainFragment_to_newsFragment"
             app:destination="@id/newsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_singleNewsFragment"
+            app:destination="@id/singleNewsFragment" />
     </fragment>
     <fragment
         android:id="@+id/wordFragment"
@@ -59,7 +62,15 @@
         <argument
             android:name="searchWord"
             app:argType="string" />
+        <action
+            android:id="@+id/action_newsFragment_to_singleNewsFragment"
+            app:destination="@id/singleNewsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/singleNewsFragment"
+        android:name="com.example.android.roomwordsample.ui.SingleNewsFragment"
+        android:label="fragment_single_news"
+        tools:layout="@layout/fragment_single_news" />
 
 
 </navigation>

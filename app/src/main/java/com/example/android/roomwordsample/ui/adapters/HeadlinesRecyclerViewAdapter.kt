@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.example.android.roomwordsample.R
+import com.example.android.roomwordsample.databinding.ItemTopHeadlinesBinding
 import com.example.android.roomwordsample.network.apiNews.NewsHeadlines
 import com.example.android.roomwordsample.util.UtilMethods.convertISOTime
 
@@ -18,9 +19,12 @@ class HeadlinesRecyclerViewAdapter(var context: Context, var newsheadlines: List
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeadlinesViewHolder {
+
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.item_top_headlines, parent, false)
-        return HeadlinesViewHolder(view)
+        val binding = ItemTopHeadlinesBinding.inflate(inflater, parent, false)
+        return HeadlinesViewHolder(
+            binding.root
+        )
     }
 
     override fun getItemCount(): Int = newsheadlines.size

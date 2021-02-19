@@ -15,7 +15,6 @@ import com.example.android.roomwordsample.R
 import com.example.android.roomwordsample.WordViewModel
 import com.example.android.roomwordsample.WordViewModelFactory
 import com.example.android.roomwordsample.application.WordsApplication
-import com.example.android.roomwordsample.database.Word
 import com.example.android.roomwordsample.databinding.FragmentMainBinding
 import com.example.android.roomwordsample.ui.adapters.WordListAdapter
 
@@ -70,7 +69,10 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = WordListAdapter { onItemClicked(it) }
+        val adapter = WordListAdapter(
+            wordViewModel
+        )
+
         binding.recyclerview.adapter = adapter
         binding.recyclerview.layoutManager = LinearLayoutManager(context)
 
@@ -89,40 +91,22 @@ class MainFragment : Fragment() {
         }
 
         binding.fabNetwork.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_marsOverviewFragment)
+//            findNavController().navigate(R.id.action_mainFragment_to_singleNewsFragment)
+
+            val searchWord: String = "international"
+            val action = MainFragmentDirections.actionMainFragmentToNewsFragment(searchWord)
+            Toast.makeText(context, "International News", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(action)
         }
 
 //        binding.fabNetwork.setOnClickListener {
-//            findNavController().navigate(R.id.action_mainFragment_to_newsFragment)
+//            findNavController().navigate(R.id.action_mainFragment_to_marsOverviewFragment)
 //        }
 
-        binding.fabNetwork.setOnLongClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_catsFragment)
-            true
-        }
-
-
-//        val itemTouchHelperCallback: ItemTouchHelper.SimpleCallback =
-//            object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
-//                override fun onMove(
-//                    recyclerView: RecyclerView,
-//                    viewHolder: RecyclerView.ViewHolder,
-//                    target: RecyclerView.ViewHolder
-//                ): Boolean {
-//                    return false
-//                }
-//
-//                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-//                    val position: Int = viewHolder.adapterPosition
-//
-//                    when(direction) {
-//                        ItemTouchHelper.RIGHT -> {
-//                            wordViewModel.deleteItem(adapter.getItemId(viewHolder.adapterPosition))
-//                        }
-//                    }
-//                }
-//            }
-
+//        binding.fabNetwork.setOnLongClickListener {
+//            findNavController().navigate(R.id.action_mainFragment_to_catsFragment)
+//            true
+//        }
 
     }
 
@@ -143,28 +127,7 @@ class MainFragment : Fragment() {
 
         val alertDialog: AlertDialog = builder.create()
         alertDialog.show()
-
     }
-
-    private fun onItemClicked(item: Word) {
-
-        val searchWord: String = item.word.toString()
-        Toast.makeText(context, "News for $searchWord", Toast.LENGTH_SHORT).show()
-        val action = MainFragmentDirections.actionMainFragmentToNewsFragment(searchWord)
-        findNavController().navigate(action)
-
-//        wordViewModel.deleteItem(item)
-    }
-
-//    private fun onItemLongClicked(item: Word): Boolean {
-//
-//        val searchWord: String = item.word.toString()
-//        Toast.makeText(context, "News for $searchWord", Toast.LENGTH_SHORT).show()
-//        val action = MainFragmentDirections.actionMainFragmentToNewsFragment(searchWord)
-//        findNavController().navigate(action)
-//        return true
-//    }
-
 
     companion object {
         /**

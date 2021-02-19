@@ -63,8 +63,6 @@ interface ApiInterface {
     @GET("$topHeadlines$category=sports&$country=uk&$pageSize=100&$sortBy=publishedAt&$apiKey")
     suspend fun getSports(): Response<ArticlesModel>
 
-    //    @GET("$everything$language=en&q=international&$pageSize=100&$sortBy=publishedAt&$apiKey")
-//    suspend fun getInternational(searchWord: String): Response<ArticlesModel>
     @GET("everything")
     suspend fun getInternational(
         @Query("language") language: String = "en",

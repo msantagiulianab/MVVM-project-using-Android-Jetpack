@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -41,8 +41,6 @@ class NewsFragment : Fragment() {
     private lateinit var gifImage: ImageView
     private lateinit var headlinesRecyclerView: RecyclerView
     private lateinit var skeleton: Skeleton
-    private lateinit var pageTitle: TextView
-    private lateinit var title: String
 
     private val args: NewsFragmentArgs by navArgs()
 
@@ -83,7 +81,6 @@ class NewsFragment : Fragment() {
         dialogNoInternet = binding.dialogNoInternet
         gifImage = binding.noInternetImage
         headlinesRecyclerView = binding.headlinesRecyclerView
-        pageTitle = binding.tvPageTitle
 
         skeleton = headlinesRecyclerView.applySkeleton(
             R.layout.shimmer_top_headlines,
@@ -94,29 +91,33 @@ class NewsFragment : Fragment() {
         skeleton.showSkeleton()
 
         observeNews()
-        checkInternet()
-        getNews(args.searchWord)
+        checkInternet(args.searchWord)
+//        getNews(args.searchWord)
 
     }
 
-    private fun checkInternet() {
+    private fun checkInternet(searchWord: String) {
         if (!context?.let { isInternetAvailable(it.applicationContext) }!!) {
             layoutNews.visibility = View.GONE
             dialogNoInternet.visibility = View.VISIBLE
             Glide.with(this)
                 .load(R.drawable.no_internet_gif_2)
                 .into(gifImage)
+            Toast.makeText(context, "Something wrong!", Toast.LENGTH_SHORT).show()
+
+
         } else {
             layoutNews.visibility = View.VISIBLE
             dialogNoInternet.visibility = View.GONE
+
+            viewModel.getInternational(searchWord)
+
         }
     }
 
-    private fun getNews(searchWord: String) {
-
-        viewModel.getInternational(searchWord)
-
-    }
+//    private fun getNews(searchWord: String) {
+//        viewModel.getInternational(searchWord)
+//    }
 
     private fun observeNews() {
         viewModel.liveData.observe(viewLifecycleOwner, {
