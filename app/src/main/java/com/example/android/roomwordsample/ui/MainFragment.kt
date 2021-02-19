@@ -91,22 +91,11 @@ class MainFragment : Fragment() {
         }
 
         binding.fabNetwork.setOnClickListener {
-//            findNavController().navigate(R.id.action_mainFragment_to_singleNewsFragment)
-
             val searchWord: String = "international"
             val action = MainFragmentDirections.actionMainFragmentToNewsFragment(searchWord)
             Toast.makeText(context, "International News", Toast.LENGTH_SHORT).show()
             findNavController().navigate(action)
         }
-
-//        binding.fabNetwork.setOnClickListener {
-//            findNavController().navigate(R.id.action_mainFragment_to_marsOverviewFragment)
-//        }
-
-//        binding.fabNetwork.setOnLongClickListener {
-//            findNavController().navigate(R.id.action_mainFragment_to_catsFragment)
-//            true
-//        }
 
     }
 

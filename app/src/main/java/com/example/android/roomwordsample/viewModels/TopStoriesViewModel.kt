@@ -134,18 +134,5 @@ class TopStoriesViewModel : ViewModel() {
         }
     }
 
-//    fun getBookmarks (context: Context) {
-//        viewModelScope.launch(Dispatchers.Main) {
-//            try {
-//                mutableLiveData.postValue(
-//                    BookmarkDatabase(context).bookmarkDao().getBookmarks()
-//                )
-//            }
-//            catch (e: Exception) {
-//                Log.e("Get Feeds", e.message)
-//            }
-//        }
-//    }
-
 
 }

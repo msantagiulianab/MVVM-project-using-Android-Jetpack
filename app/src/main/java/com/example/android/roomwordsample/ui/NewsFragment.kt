@@ -47,7 +47,7 @@ class NewsFragment : Fragment() {
     private var _binding: FragmentTopStoriesBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: TopStoriesViewModel by lazy {
+    private val newsViewModel: TopStoriesViewModel by lazy {
         ViewModelProvider(this).get(TopStoriesViewModel::class.java)
     }
 
@@ -92,7 +92,6 @@ class NewsFragment : Fragment() {
 
         observeNews()
         checkInternet(args.searchWord)
-//        getNews(args.searchWord)
 
     }
 
@@ -110,17 +109,13 @@ class NewsFragment : Fragment() {
             layoutNews.visibility = View.VISIBLE
             dialogNoInternet.visibility = View.GONE
 
-            viewModel.getInternational(searchWord)
+            newsViewModel.getInternational(searchWord)
 
         }
     }
 
-//    private fun getNews(searchWord: String) {
-//        viewModel.getInternational(searchWord)
-//    }
-
     private fun observeNews() {
-        viewModel.liveData.observe(viewLifecycleOwner, {
+        newsViewModel.liveData.observe(viewLifecycleOwner, {
 
             val myNewsList = mutableListOf<NewsHeadlines>()
             for (i in it.articles)
@@ -141,7 +136,6 @@ class NewsFragment : Fragment() {
                     )
 
                 }
-
 
             headlinesRecyclerView.adapter =
                 HeadlinesRecyclerViewAdapter(requireContext(), myNewsList)

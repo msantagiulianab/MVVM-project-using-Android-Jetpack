@@ -6,15 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.example.android.roomwordsample.R
 import com.example.android.roomwordsample.databinding.ItemTopHeadlinesBinding
 import com.example.android.roomwordsample.network.apiNews.NewsHeadlines
+import com.example.android.roomwordsample.ui.NewsFragmentDirections
 import com.example.android.roomwordsample.util.UtilMethods.convertISOTime
 
-class HeadlinesRecyclerViewAdapter(var context: Context, var newsheadlines: List<NewsHeadlines>) :
+class HeadlinesRecyclerViewAdapter(
+    var context: Context,
+    var newsheadlines: List<NewsHeadlines>
+) :
     RecyclerView.Adapter<HeadlinesRecyclerViewAdapter.HeadlinesViewHolder>() {
 
 
@@ -23,7 +28,7 @@ class HeadlinesRecyclerViewAdapter(var context: Context, var newsheadlines: List
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemTopHeadlinesBinding.inflate(inflater, parent, false)
         return HeadlinesViewHolder(
-            binding.root
+            binding
         )
     }
 
@@ -31,56 +36,48 @@ class HeadlinesRecyclerViewAdapter(var context: Context, var newsheadlines: List
 
     override fun onBindViewHolder(holder: HeadlinesViewHolder, position: Int) {
 
-        if (newsheadlines.get(position).title != null) {
-            holder.text.text = newsheadlines.get(position).title
-        } else if (newsheadlines.get(position).description != null) {
-            holder.text.text = newsheadlines.get(position).description
-        } else if (newsheadlines.get(position).content != null) {
-            holder.text.text = newsheadlines.get(position).content
+        if (newsheadlines[position].title != null) {
+            holder.text.text = newsheadlines[position].title
+        } else if (newsheadlines[position].description != null) {
+            holder.text.text = newsheadlines[position].description
+        } else if (newsheadlines[position].content != null) {
+            holder.text.text = newsheadlines[position].content
         }
 
         Glide.with(context)
-            .load(newsheadlines.get(position).urlToImage)
+            .load(newsheadlines[position].urlToImage)
             .placeholder(R.drawable.index)
             .into(holder.image)
 
-//        holder.item.setOnClickListener {
-//            val intent = Intent(context, SingleNewsActivity::class.java);
-//            intent.putExtra(
-//                context.getString(R.string.content),
-//                newsheadlines.get(position).content
-//            )
-//            intent.putExtra(
-//                context.getString(R.string.description),
-//                newsheadlines.get(position).description
-//            )
-//            intent.putExtra(context.getString(R.string.author), newsheadlines.get(position).author)
-//            intent.putExtra(context.getString(R.string.url), newsheadlines.get(position).url)
-//            intent.putExtra(
-//                context.getString(R.string.urlToImage),
-//                newsheadlines.get(position).urlToImage
-//            )
-//            intent.putExtra(context.getString(R.string.title), newsheadlines.get(position).title)
-//            intent.putExtra(
-//                context.getString(R.string.publishedAt),
-//                newsheadlines.get(position).publishedAt
-//            )
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//            context.startActivity(intent)
-//        }
-
         holder.date.text = convertISOTime(context, newsheadlines[position].publishedAt)
+
+        holder.item.setOnClickListener {
+            val action = NewsFragmentDirections.actionNewsFragmentToSingleNewsFragment(
+                newsheadlines[position].urlToImage!!,
+                newsheadlines[position].content!!
+            )
+            findNavController(holder.itemView).navigate(action)
+        }
 
     }
 
-    class HeadlinesViewHolder(itemView: View) : ViewHolder(itemView) {
+    class HeadlinesViewHolder(
+        binding: ItemTopHeadlinesBinding
+    ) : ViewHolder(binding.root),
+        View.OnClickListener {
 
-        val image: ImageView = itemView.findViewById(R.id.image_top_headlines)
-        val text: TextView = itemView.findViewById(R.id.title_top_headlines)
-        val date: TextView = itemView.findViewById(R.id.date_top_headlines)
         val item: View = itemView
+
+        val image: ImageView = binding.imageTopHeadlines
+        val text: TextView = binding.titleTopHeadlines
+        val date: TextView = binding.dateTopHeadlines
+
+
+        override fun onClick(v: View?) {
+            TODO("Not yet implemented")
+        }
+
 
     }
 
 }
-

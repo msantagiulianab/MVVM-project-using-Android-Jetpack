@@ -4,8 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.android.roomwordsample.R
+import com.example.android.roomwordsample.databinding.FragmentSingleNewsBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +26,11 @@ class SingleNewsFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private val args: SingleNewsFragmentArgs by navArgs()
+
+    private var _binding: FragmentSingleNewsBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,8 +43,26 @@ class SingleNewsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_single_news, container, false)
+
+        _binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_single_news,
+            container,
+            false
+        )
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        Glide.with(this)
+            .load(args.urlImage)
+            .placeholder(R.drawable.index)
+            .into(binding.imageNews)
+
+        binding.contentNews.text = args.content
     }
 
     companion object {
