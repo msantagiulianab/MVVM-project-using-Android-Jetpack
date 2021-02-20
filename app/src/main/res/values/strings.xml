@@ -48,5 +48,9 @@
     <string name="try_again">Try Again</string>
     <string name="outer_border">Outer border</string>
     <string name="no_items_available">No items available</string>
+    <string name="picture_describing_the_news">Picture describing the news</string>
+    <string name="image_news">Image news</string>
+    <string name="background_image_for_news">Background image for news</string>
+    <string name="background_image_for_news_date">Background image for news date</string>
 
 </resources>
