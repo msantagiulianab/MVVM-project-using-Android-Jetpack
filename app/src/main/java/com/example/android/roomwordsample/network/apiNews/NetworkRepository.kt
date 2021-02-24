@@ -1,7 +1,6 @@
-package com.example.android.roomwordsample.database
+package com.example.android.roomwordsample.network.apiNews
 
-import com.example.android.roomwordsample.network.apiNews.ApiInterface
-import com.example.android.roomwordsample.network.apiNews.SafeApiRequest
+import com.example.android.roomwordsample.util.SafeApiRequest
 
 class NetworkRepository(
     private val apiInterface: ApiInterface

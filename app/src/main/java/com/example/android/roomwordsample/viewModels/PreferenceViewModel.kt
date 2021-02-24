@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.android.roomwordsample.preferences.PreferencesManager
+import com.example.android.roomwordsample.preferences.UiTheme
 import kotlinx.coroutines.launch
 
 class PreferenceViewModel(private val preferencesManager: PreferencesManager) : ViewModel() {

@@ -1,4 +1,4 @@
-package com.example.android.roomwordsample.network.apiNews
+package com.example.android.roomwordsample.util
 
 import retrofit2.Response
 
@@ -14,7 +14,6 @@ abstract class SafeApiRequest {
             return response.body()!!
 
         } else {
-            // todo handle api exception
             throw ApiException(response.code().toString())
         }
 

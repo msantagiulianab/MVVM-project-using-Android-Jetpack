@@ -1,11 +1,14 @@
 package com.example.android.roomwordsample.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.doOnPreDraw
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -13,28 +16,17 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.android.roomwordsample.R
-import com.example.android.roomwordsample.databinding.FragmentTopStoriesBinding
-import com.example.android.roomwordsample.network.apiNews.NewsHeadlines
+import com.example.android.roomwordsample.databinding.FragmentNewsBinding
+import com.example.android.roomwordsample.network.apiNews.models.NewsHeadlines
 import com.example.android.roomwordsample.ui.adapters.HeadlinesRecyclerViewAdapter
 import com.example.android.roomwordsample.util.UtilMethods.isInternetAvailable
 import com.example.android.roomwordsample.viewModels.TopStoriesViewModel
 import com.faltenreich.skeletonlayout.Skeleton
 import com.faltenreich.skeletonlayout.applySkeleton
+import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialSharedAxis
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [NewsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class NewsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     private lateinit var dialogNoInternet: View
     private lateinit var layoutNews: View
@@ -44,7 +36,7 @@ class NewsFragment : Fragment() {
 
     private val args: NewsFragmentArgs by navArgs()
 
-    private var _binding: FragmentTopStoriesBinding? = null
+    private var _binding: FragmentNewsBinding? = null
     private val binding get() = _binding!!
 
     private val newsViewModel: TopStoriesViewModel by lazy {
@@ -53,12 +45,17 @@ class NewsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
         }
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+        }
+
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,10 +63,12 @@ class NewsFragment : Fragment() {
 
         _binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_top_stories,
+            R.layout.fragment_news,
             container,
             false
         )
+
+        (context as AppCompatActivity).supportActionBar!!.title = getString(R.string.app_name)
 
         return binding.root
     }
@@ -77,40 +76,41 @@ class NewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
+
         layoutNews = binding.layoutTopHeadlines
         dialogNoInternet = binding.dialogNoInternet
         gifImage = binding.noInternetImage
         headlinesRecyclerView = binding.headlinesRecyclerView
 
         skeleton = headlinesRecyclerView.applySkeleton(
-            R.layout.shimmer_top_headlines,
+            R.layout.shimmer_news,
             10
         )
+
         skeleton.maskCornerRadius = 40F
         skeleton.shimmerDurationInMillis = 1500
         skeleton.showSkeleton()
 
         observeNews()
-        checkInternet(args.searchWord)
+        safelyLoadNews(args.searchWord)
 
     }
 
-    private fun checkInternet(searchWord: String) {
+    private fun safelyLoadNews(searchWord: String) {
         if (!context?.let { isInternetAvailable(it.applicationContext) }!!) {
             layoutNews.visibility = View.GONE
             dialogNoInternet.visibility = View.VISIBLE
             Glide.with(this)
-                .load(R.drawable.no_internet_gif_2)
+                .load(R.drawable.no_internet_sat)
                 .into(gifImage)
             Toast.makeText(context, "Something wrong!", Toast.LENGTH_SHORT).show()
-
-
         } else {
             layoutNews.visibility = View.VISIBLE
             dialogNoInternet.visibility = View.GONE
 
             newsViewModel.getInternational(searchWord)
-
         }
     }
 
@@ -137,29 +137,26 @@ class NewsFragment : Fragment() {
 
                 }
 
+
             headlinesRecyclerView.adapter =
                 HeadlinesRecyclerViewAdapter(requireContext(), myNewsList)
+
+            /*
+    Pointing at the selected news article when returning to this page is not possible if, like in
+    this case, I want to always have a refreshed list of articles straight from the viewModel
+             */
+//        headlinesRecyclerView.adapter?.stateRestorationPolicy =
+//            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+
         })
+
+        exitTransition = MaterialElevationScale(false).apply {
+            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+        }
+        reenterTransition = MaterialElevationScale(true).apply {
+            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+        }
+
     }
 
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment NewsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            NewsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }

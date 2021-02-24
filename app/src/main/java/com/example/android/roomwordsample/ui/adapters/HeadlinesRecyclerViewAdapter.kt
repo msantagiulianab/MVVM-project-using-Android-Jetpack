@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.example.android.roomwordsample.R
-import com.example.android.roomwordsample.databinding.ItemTopHeadlinesBinding
-import com.example.android.roomwordsample.network.apiNews.NewsHeadlines
+import com.example.android.roomwordsample.databinding.ItemNewsRecyclerviewBinding
+import com.example.android.roomwordsample.network.apiNews.models.NewsHeadlines
 import com.example.android.roomwordsample.ui.NewsFragmentDirections
 import com.example.android.roomwordsample.util.UtilMethods.convertISOTime
 
@@ -22,11 +23,10 @@ class HeadlinesRecyclerViewAdapter(
 ) :
     RecyclerView.Adapter<HeadlinesRecyclerViewAdapter.HeadlinesViewHolder>() {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeadlinesViewHolder {
 
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemTopHeadlinesBinding.inflate(inflater, parent, false)
+        val binding = ItemNewsRecyclerviewBinding.inflate(inflater, parent, false)
         return HeadlinesViewHolder(
             binding
         )
@@ -52,17 +52,21 @@ class HeadlinesRecyclerViewAdapter(
         holder.date.text = convertISOTime(context, newsheadlines[position].publishedAt)
 
         holder.item.setOnClickListener {
+
+            val newsCardDetailTransitionName =
+                context.resources.getString(R.string.news_card_detail_transition_name)
+            val extras = FragmentNavigatorExtras(it to newsCardDetailTransitionName)
             val action = NewsFragmentDirections.actionNewsFragmentToSingleNewsFragment(
                 newsheadlines[position].urlToImage!!,
-                newsheadlines[position].content!!
+                newsheadlines[position].content!!,
+                newsheadlines[position].url!!
             )
-            findNavController(holder.itemView).navigate(action)
+            findNavController(holder.itemView).navigate(action, extras)
         }
-
     }
 
     class HeadlinesViewHolder(
-        binding: ItemTopHeadlinesBinding
+        binding: ItemNewsRecyclerviewBinding
     ) : ViewHolder(binding.root),
         View.OnClickListener {
 
@@ -72,11 +76,9 @@ class HeadlinesRecyclerViewAdapter(
         val text: TextView = binding.titleTopHeadlines
         val date: TextView = binding.dateTopHeadlines
 
-
         override fun onClick(v: View?) {
-            TODO("Not yet implemented")
-        }
 
+        }
 
     }
 

@@ -1,10 +1,10 @@
 package com.example.android.roomwordsample.util
 
-import android.app.ProgressDialog
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.util.Log
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import com.example.android.roomwordsample.R
 import timber.log.Timber
 import java.text.ParseException
@@ -53,45 +53,38 @@ object UtilMethods {
             formattedTime =
                 SimpleDateFormat(context.getString(R.string.time_format)).format(convertedDate)
 
-//            Log.e("Time", formattedTime.toString())
+            Timber.e(formattedTime)
 
-            if ((formattedTime.subSequence(6, 8).toString()
-                    .equals("PM") || formattedTime.subSequence(6, 8).toString()
-                    .equals("pm")) && formattedTime.subSequence(0, 2).toString().toInt() > 12
+            if ((formattedTime.subSequence(6, 8).toString() == "PM" || formattedTime.subSequence(
+                    6,
+                    8
+                ).toString() == "pm") && formattedTime.subSequence(0, 2).toString().toInt() > 12
             ) {
                 formattedTime = (formattedTime.subSequence(0, 2).toString()
                     .toInt() - 12).toString() + formattedTime.subSequence(2, 8).toString()
             }
-            if (formattedTime.subSequence(0, 2).toString().equals("00")) {
+            if (formattedTime.subSequence(0, 2).toString() == "00") {
                 formattedTime = (formattedTime.subSequence(0, 2).toString()
                     .toInt() + 1).toString() + formattedTime.subSequence(2, 8).toString()
 
             }
-            if (formattedTime.subSequence(0, 2).toString().equals("0:")) {
+            if (formattedTime.subSequence(0, 2).toString() == "0:") {
                 formattedTime = (formattedTime.subSequence(0, 1).toString()
                     .toInt() + 1).toString() + formattedTime.subSequence(2, 8).toString()
 
             }
 
-
-//            Log.d("Date ", "$formattedDate | $formattedTime")
         } catch (e: ParseException) {
             e.printStackTrace()
-            Log.e("Error Date ", e.message!!)
+            Timber.e(e.message!!)
         }
         return "$formattedDate | $formattedTime"
     }
 
-    fun showLoader(context: Context, title: String, message: String) {
-
-        val dialog = ProgressDialog(context)
-        dialog.setTitle(title)
-        dialog.setMessage(message)
-        dialog.show()
-
-    }
-
-    fun DismissLoader() {
+    fun hideKeyboard(view: View) {
+        val inputManager: InputMethodManager = view.context
+            .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
 }

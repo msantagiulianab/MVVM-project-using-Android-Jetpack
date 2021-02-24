@@ -1,15 +1,15 @@
 package com.example.android.roomwordsample.viewModels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.android.roomwordsample.database.NetworkRepository
 import com.example.android.roomwordsample.network.apiNews.ApiInterface
-import com.example.android.roomwordsample.network.apiNews.ArticlesModel
+import com.example.android.roomwordsample.network.apiNews.NetworkRepository
+import com.example.android.roomwordsample.network.apiNews.models.ArticlesModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class TopStoriesViewModel : ViewModel() {
 
@@ -19,11 +19,23 @@ class TopStoriesViewModel : ViewModel() {
     val liveData: LiveData<ArticlesModel>
 
     private var mutableTopLiveData = MutableLiveData<ArticlesModel>()
-    val topliveData: LiveData<ArticlesModel>
+    private val topliveData: LiveData<ArticlesModel>
 
     init {
         liveData = mutableLiveData
         topliveData = mutableTopLiveData
+    }
+
+    fun getInternational(searchWord: String) {
+        viewModelScope.launch(Dispatchers.Main) {
+            try {
+                mutableLiveData.postValue(
+                    repository.getInternational(searchWord)
+                )
+            } catch (e: Exception) {
+                Timber.e(e.message!!)
+            }
+        }
     }
 
     fun getBusiness() {
@@ -33,7 +45,7 @@ class TopStoriesViewModel : ViewModel() {
                     repository.getBusiness()
                 )
             } catch (e: Exception) {
-                Log.e("Get Feeds", e.message!!)
+                Timber.e(e.message!!)
             }
         }
     }
@@ -45,7 +57,7 @@ class TopStoriesViewModel : ViewModel() {
                     repository.getEntertainment()
                 )
             } catch (e: Exception) {
-                Log.e("Get Feeds", e.message!!)
+                Timber.e(e.message!!)
             }
         }
     }
@@ -57,7 +69,7 @@ class TopStoriesViewModel : ViewModel() {
                     repository.getSports()
                 )
             } catch (e: Exception) {
-                Log.e("Get Feeds", e.message!!)
+                Timber.e(e.message!!)
             }
         }
     }
@@ -69,7 +81,7 @@ class TopStoriesViewModel : ViewModel() {
                     repository.getScience()
                 )
             } catch (e: Exception) {
-                Log.e("Get Feeds", e.message!!)
+                Timber.e(e.message!!)
             }
         }
     }
@@ -81,7 +93,7 @@ class TopStoriesViewModel : ViewModel() {
                     repository.getTechnology()
                 )
             } catch (e: Exception) {
-                Log.e("Get Feeds", e.message!!)
+                Timber.e(e.message!!)
             }
         }
     }
@@ -93,19 +105,7 @@ class TopStoriesViewModel : ViewModel() {
                     repository.getMedical()
                 )
             } catch (e: Exception) {
-                Log.e("Get Feeds", e.message!!)
-            }
-        }
-    }
-
-    fun getInternational(searchWord: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            try {
-                mutableLiveData.postValue(
-                    repository.getInternational(searchWord)
-                )
-            } catch (e: Exception) {
-                Log.e("Get Feeds", e.message!!)
+                Timber.e(e.message!!)
             }
         }
     }
@@ -117,7 +117,7 @@ class TopStoriesViewModel : ViewModel() {
                     repository.getTopHeadlines()
                 )
             } catch (e: Exception) {
-                Log.e("Get Feeds", e.message!!)
+                Timber.e(e.message!!)
             }
         }
     }
@@ -129,10 +129,9 @@ class TopStoriesViewModel : ViewModel() {
                     repository.getArticles()
                 )
             } catch (e: Exception) {
-                Log.e("Get Feeds", e.message!!)
+                Timber.e(e.message!!)
             }
         }
     }
-
 
 }

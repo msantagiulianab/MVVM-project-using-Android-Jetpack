@@ -1,4 +1,4 @@
-package com.example.android.roomwordsample.network.apiNews
+package com.example.android.roomwordsample.network.apiNews.models
 
 data class NewsHeadlines(
     var author: String?,

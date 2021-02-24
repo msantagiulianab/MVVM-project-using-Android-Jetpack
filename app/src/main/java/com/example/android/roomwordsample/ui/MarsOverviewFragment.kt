@@ -2,10 +2,12 @@ package com.example.android.roomwordsample.ui
 
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.android.roomwordsample.R
 import com.example.android.roomwordsample.databinding.FragmentMarsOverviewBinding
 import com.example.android.roomwordsample.ui.adapters.MarsPhotoGridAdapter
 import com.example.android.roomwordsample.viewModels.MarsOverviewViewModel
@@ -51,6 +53,9 @@ class MarsOverviewFragment : Fragment() {
         })
 //
 //        setHasOptionsMenu(true)
+
+        (context as AppCompatActivity).supportActionBar!!.title = getString(R.string.app_name)
+
         return binding.root
     }
 

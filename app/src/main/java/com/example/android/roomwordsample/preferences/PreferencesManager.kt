@@ -1,4 +1,4 @@
-package com.example.android.roomwordsample
+package com.example.android.roomwordsample.preferences
 
 import android.content.Context
 import androidx.datastore.core.DataStore

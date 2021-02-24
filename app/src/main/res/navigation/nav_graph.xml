@@ -12,11 +12,7 @@
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_newWordFragment"
-            app:destination="@id/wordFragment"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/slide_out" />
+            app:destination="@id/wordFragment" />
         <action
             android:id="@+id/action_mainFragment_to_catsFragment"
             app:destination="@id/catsFragment"
@@ -33,11 +29,7 @@
             app:popExitAnim="@anim/slide_out" />
         <action
             android:id="@+id/action_mainFragment_to_newsFragment"
-            app:destination="@id/newsFragment"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/slide_out" />
+            app:destination="@id/newsFragment" />
     </fragment>
     <fragment
         android:id="@+id/wordFragment"
@@ -47,10 +39,8 @@
         <action
             android:id="@+id/action_newWordFragment_to_mainFragment"
             app:destination="@id/mainFragment"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/slide_out" />
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/catsFragment"
@@ -85,11 +75,7 @@
             app:argType="string" />
         <action
             android:id="@+id/action_newsFragment_to_singleNewsFragment"
-            app:destination="@id/singleNewsFragment"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/slide_out" />
+            app:destination="@id/singleNewsFragment" />
     </fragment>
     <fragment
         android:id="@+id/singleNewsFragment"
@@ -101,6 +87,9 @@
             app:argType="string" />
         <argument
             android:name="content"
+            app:argType="string" />
+        <argument
+            android:name="url_article"
             app:argType="string" />
     </fragment>
 

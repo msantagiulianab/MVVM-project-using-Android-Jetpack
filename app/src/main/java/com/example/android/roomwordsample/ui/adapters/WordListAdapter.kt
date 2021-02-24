@@ -4,24 +4,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
-import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.roomwordsample.WordViewModel
 import com.example.android.roomwordsample.database.Word
-import com.example.android.roomwordsample.databinding.RecyclerviewItemBinding
-import com.example.android.roomwordsample.ui.MainFragmentDirections
+import com.example.android.roomwordsample.databinding.ItemMainRecyclerviewBinding
 
-
-class WordListAdapter(private val wordViewModel: WordViewModel) :
+class WordListAdapter(
+    private val wordViewModel: WordViewModel
+) :
     ListAdapter<Word, WordListAdapter.WordViewHolder>(WordsComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): WordViewHolder {
 
         val inflater = LayoutInflater.from(parent.context)
-        val binding = RecyclerviewItemBinding.inflate(inflater, parent, false)
+        val binding = ItemMainRecyclerviewBinding.inflate(inflater, parent, false)
         return WordViewHolder(
             binding,
             wordViewModel
@@ -35,7 +33,7 @@ class WordListAdapter(private val wordViewModel: WordViewModel) :
     }
 
     class WordViewHolder(
-        binding: RecyclerviewItemBinding,
+        binding: ItemMainRecyclerviewBinding,
         wordViewModel: WordViewModel
     ) : RecyclerView.ViewHolder(binding.root),
         View.OnClickListener,
@@ -46,26 +44,34 @@ class WordListAdapter(private val wordViewModel: WordViewModel) :
 
         init {
 
-            binding.textView.setOnClickListener { v ->
-                val searchWord: String = wordViewModel.allWords.value!![adapterPosition].word
-                val action = MainFragmentDirections.actionMainFragmentToNewsFragment(searchWord)
-                Toast.makeText(v.context, "News for $searchWord", Toast.LENGTH_SHORT).show()
-                findNavController(v).navigate(action)
-            }
-
-            binding.textView.setOnLongClickListener { v ->
-                Toast.makeText(v.context, "Deleted: $versionName", Toast.LENGTH_SHORT).show()
-                wordViewModel.deleteItem(wordViewModel.allWords.value!![adapterPosition])
-                true
-            }
+//            binding.textView.setOnClickListener { v ->
+//                val searchWord: String = wordViewModel.allWords.value!![adapterPosition].word
+//                val action = MainFragmentDirections.actionMainFragmentToNewsFragment(searchWord)
+//                Toast.makeText(v.context, "News for $searchWord", Toast.LENGTH_SHORT).show()
+//                findNavController(v).navigate(action)
+//                hideKeyboard(v)
+////
+//                Toast.makeText(v.context, "Deleted: $versionName", Toast.LENGTH_SHORT).show()
+//                wordViewModel.deleteItem(wordViewModel.allWords.value!![adapterPosition])
+//                hideKeyboard(v)
+//            }
+//
+//            binding.textView.setOnLongClickListener { v ->
+//                val searchWord: String = wordViewModel.allWords.value!![adapterPosition].word
+//                val action = MainFragmentDirections.actionMainFragmentToNewsFragment(searchWord)
+//                Toast.makeText(v.context, "News for $searchWord", Toast.LENGTH_SHORT).show()
+//                findNavController(v).navigate(action)
+//                hideKeyboard(v)
+//                true
+//            }
         }
 
         override fun onClick(v: View?) {
-            TODO("Not yet implemented")
+
         }
 
         override fun onLongClick(v: View?): Boolean {
-            TODO("Not yet implemented")
+
             return true
         }
 

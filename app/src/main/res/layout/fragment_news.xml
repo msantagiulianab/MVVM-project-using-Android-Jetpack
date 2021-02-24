@@ -23,6 +23,7 @@
                     android:id="@+id/headlines_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:transitionGroup="true"
                     android:layout_margin="5dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
@@ -55,7 +56,8 @@
                 android:id="@+id/no_internet_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/no_internet_gif_2" />
+                android:contentDescription="@string/it_shows_there_is_no_connection"
+                android:src="@drawable/no_internet_sat" />
 
             <View
                 android:layout_width="0dp"

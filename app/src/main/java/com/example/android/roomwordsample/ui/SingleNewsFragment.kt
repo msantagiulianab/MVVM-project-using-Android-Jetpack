@@ -1,30 +1,24 @@
 package com.example.android.roomwordsample.ui
 
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.android.roomwordsample.R
 import com.example.android.roomwordsample.databinding.FragmentSingleNewsBinding
+import com.example.android.roomwordsample.util.themeColor
+import com.google.android.material.transition.MaterialContainerTransform
+import timber.log.Timber
+import kotlin.math.abs
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [SingleNewsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SingleNewsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     private val args: SingleNewsFragmentArgs by navArgs()
 
@@ -33,12 +27,17 @@ class SingleNewsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+
+        sharedElementEnterTransition = MaterialContainerTransform().apply {
+            drawingViewId = R.id.my_nav_host_fragment
+            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+            scrimColor = Color.TRANSPARENT
+            setAllContainerColors(requireContext().themeColor(R.attr.colorSurface))
         }
+
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,6 +49,12 @@ class SingleNewsFragment : Fragment() {
             container,
             false
         )
+
+        val gestureSingleNews = gestureDetectorSingleNewsFragment()
+
+        binding.newsCardView.setOnTouchListener { _, event -> gestureSingleNews.onTouchEvent(event) }
+
+        (context as AppCompatActivity).supportActionBar!!.title = getString(R.string.app_name)
 
         return binding.root
     }
@@ -63,25 +68,50 @@ class SingleNewsFragment : Fragment() {
             .into(binding.imageNews)
 
         binding.contentNews.text = args.content
+
+        binding.showFullArticle.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(args.urlArticle))
+            startActivity(intent)
+        }
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SingleNewsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SingleNewsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun gestureDetectorSingleNewsFragment() = GestureDetector(
+        activity,
+        object : GestureDetector.SimpleOnGestureListener() {
+            override fun onDown(e: MotionEvent): Boolean {
+                return true
             }
-    }
+
+            override fun onFling(
+                e1: MotionEvent, e2: MotionEvent, velocityX: Float,
+                velocityY: Float
+            ): Boolean {
+                Timber.i("onFling has been called!")
+                val swipeMinDistance = 120
+                val swipeMaxOffPath = 250
+                val swipeThresholdVelocity = 200
+
+                try {
+                    if (abs(e1.y - e2.y) > swipeMaxOffPath) return false
+                    if (e1.x - e2.x > swipeMinDistance
+                        && abs(velocityX) > swipeThresholdVelocity
+                    ) {
+                        Timber.i("Right to Left")
+                        //                            Toast.makeText(context, "left", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(args.urlArticle))
+                        startActivity(intent)
+                    } else if (e2.x - e1.x > swipeMinDistance
+                        && abs(velocityX) > swipeThresholdVelocity
+                    ) {
+                        Timber.i("Left to Right")
+                        //                            Toast.makeText(context, "right", Toast.LENGTH_SHORT).show()
+                        //                            activity?.supportFragmentManager?.popBackStack()
+                    }
+                } catch (e: Exception) {
+                    // nothing
+                }
+                return super.onFling(e1, e2, velocityX, velocityY)
+            }
+        })
+
 }
