@@ -21,8 +21,6 @@ import com.example.android.roomwordsample.network.apiNews.models.NewsHeadlines
 import com.example.android.roomwordsample.ui.adapters.HeadlinesRecyclerViewAdapter
 import com.example.android.roomwordsample.util.UtilMethods.isInternetAvailable
 import com.example.android.roomwordsample.viewModels.TopStoriesViewModel
-import com.faltenreich.skeletonlayout.Skeleton
-import com.faltenreich.skeletonlayout.applySkeleton
 import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialSharedAxis
 
@@ -32,7 +30,6 @@ class NewsFragment : Fragment() {
     private lateinit var layoutNews: View
     private lateinit var gifImage: ImageView
     private lateinit var headlinesRecyclerView: RecyclerView
-    private lateinit var skeleton: Skeleton
 
     private val args: NewsFragmentArgs by navArgs()
 
@@ -84,15 +81,6 @@ class NewsFragment : Fragment() {
         gifImage = binding.noInternetImage
         headlinesRecyclerView = binding.headlinesRecyclerView
 
-        skeleton = headlinesRecyclerView.applySkeleton(
-            R.layout.shimmer_news,
-            10
-        )
-
-        skeleton.maskCornerRadius = 40F
-        skeleton.shimmerDurationInMillis = 1500
-        skeleton.showSkeleton()
-
         observeNews()
         safelyLoadNews(args.searchWord)
 
@@ -134,9 +122,7 @@ class NewsFragment : Fragment() {
                             i.content
                         )
                     )
-
                 }
-
 
             headlinesRecyclerView.adapter =
                 HeadlinesRecyclerViewAdapter(requireContext(), myNewsList)

@@ -9,7 +9,7 @@
             android:id="@+id/news_card_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/holo_purple"
+            android:backgroundTint="@color/secondaryColor"
             android:transitionName="@string/news_card_detail_transition_name">
 
             <LinearLayout xmlns:tools="http://schemas.android.com/tools"
@@ -20,23 +20,15 @@
 
                 <ImageView
                     android:id="@+id/image_news"
-                    android:layout_width="match_parent"
-                    android:layout_height="270dp"
-                    android:contentDescription="@string/picture_describing_the_news"
-                    android:scaleType="centerCrop" />
+                    style="@style/image_detail_news" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/swipe_left_the_image_to_see_the_full_article"
-                    android:textStyle="italic" />
+                    style="@style/swipe_text_detail_news"
+                    android:text="@string/swipe_left_the_image_to_see_the_full_article" />
 
                 <TextView
                     android:id="@+id/content_news"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="32dp"
-                    android:paddingHorizontal="8dp" />
+                    style="@style/content_detail_news" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -45,11 +37,9 @@
 
                     <Button
                         android:id="@+id/show_full_article"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_marginTop="32dp"
+                        style="@style/full_article_button_detail_news"
                         android:text="@string/full_article" />
+
                 </RelativeLayout>
 
             </LinearLayout>

@@ -72,9 +72,9 @@ class HeadlinesRecyclerViewAdapter(
 
         val item: View = itemView
 
-        val image: ImageView = binding.imageTopHeadlines
-        val text: TextView = binding.titleTopHeadlines
-        val date: TextView = binding.dateTopHeadlines
+        val image: ImageView = binding.imageNewsItem
+        val text: TextView = binding.titleNewsItem
+        val date: TextView = binding.dateNewsItem
 
         override fun onClick(v: View?) {
 

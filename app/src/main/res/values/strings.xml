@@ -20,12 +20,7 @@
     <string name="jan_01_2020_01_00_am">Jan 01, 2020 | 01:00 am</string>
     <string name="oops">Oops!</string>
     <string name="please_check_your_internet_connection">Please check your Internet Connection</string>
-    <string name="outer_border">Outer border</string>
-    <string name="no_items_available">No items available</string>
     <string name="picture_describing_the_news">Picture describing the news</string>
-    <string name="image_news">Image news</string>
-    <string name="background_image_for_news">Background image for news</string>
-    <string name="background_image_for_news_date">Background image for news date</string>
     <string name="type_your_news_search">Search for news</string>
     <string name="full_article">Full article</string>
     <string name="news_card_transition_name">news_card_%1$s</string>
@@ -36,4 +31,7 @@
     <string name="this_image_means_you_can_open_up_this_article">This image means you can open up this article</string>
     <string name="property_image">Property image</string>
     <string name="property_type">Property type</string>
+    <string name="click_to_add_a_word">Click to add a word</string>
+    <string name="click_to_search_for_news">Click to search for news</string>
+    <string name="click_to_clear_the_database">Click to clear the database</string>
 </resources>

@@ -1,7 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="big_padding">16dp</dimen>
+
+    // Padding
+    <dimen name="medium_padding">16dp</dimen>
+    <dimen name="x_small_padding">4dp</dimen>
+    <dimen name="small_padding">8dp</dimen>
+    <dimen name="padding_news_item">5dp</dimen>
+
+    // Margin
+    <dimen name="big_margin">32dp</dimen>
+    <dimen name="medium_margin">16dp</dimen>
+    <dimen name="xx_small_margin">2dp</dimen>
+    <dimen name="x_big_margin">64dp</dimen>
+    <dimen name="save_button_top_margin">180dp</dimen>
+    <dimen name="x_small_margin">4dp</dimen>
+    <dimen name="small_margin">8dp</dimen>
+
+    // Text size
+    <dimen name="text_size_add_word">18sp</dimen>
+    <dimen name="text_size_check_internet">16sp</dimen>
+    <dimen name="text_size_oops">20sp</dimen>
+    <dimen name="text_size_title_article_item">14sp</dimen>
+    <dimen name="text_size_date_article_item">12sp</dimen>
+
+    // Elevation
+    <dimen name="medium_elevation">16dp</dimen>
+    <dimen name="no_elevation">0dp</dimen>
+
+    // Radius
+    <dimen name="card_corner_radius">4dp</dimen>
+    <dimen name="image_circle_radius">5dp</dimen>
+
+    // Height
     <dimen name="min_height">48dp</dimen>
-    <dimen name="text_margin">16dp</dimen>
+    <dimen name="news_item_height">100dp</dimen>
+    <dimen name="image_news_detail_height">270dp</dimen>
+
+    // Width
+    <dimen name="image_news_item_width">90dp</dimen>
+
 
 </resources>

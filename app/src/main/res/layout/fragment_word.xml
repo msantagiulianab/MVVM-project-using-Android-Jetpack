@@ -12,23 +12,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="@dimen/x_big_margin"
             tools:context=".WordFragment">
 
             <EditText
                 android:id="@+id/edit_word"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/big_padding"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="16dp"
-                android:autofillHints=""
-                android:fontFamily="sans-serif-light"
+                style="@style/edit_word_add"
                 android:hint="@string/hint_word"
-                android:inputType="textAutoComplete"
-                android:minHeight="@dimen/min_height"
-                android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/button_save"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -36,12 +26,7 @@
 
             <Button
                 android:id="@+id/button_save"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/big_padding"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="180dp"
-                android:layout_marginEnd="16dp"
+                style="@style/button_save_word_add"
                 android:text="@string/button_save"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

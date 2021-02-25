@@ -358,7 +358,7 @@ class MainFragment : Fragment() {
                 .addBackgroundColor(
                     ContextCompat.getColor(
                         context as AppCompatActivity,
-                        android.R.color.holo_purple
+                        R.color.secondaryColor
                     )
                 )
                 .addActionIcon(R.drawable.ic_baseline_search_24)
