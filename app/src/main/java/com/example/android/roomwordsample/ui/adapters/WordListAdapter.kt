@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.android.roomwordsample.WordViewModel
 import com.example.android.roomwordsample.database.Word
 import com.example.android.roomwordsample.databinding.ItemMainRecyclerviewBinding
+import com.example.android.roomwordsample.viewModels.WordViewModel
 
 class WordListAdapter(
     private val wordViewModel: WordViewModel

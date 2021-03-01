@@ -15,13 +15,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.transition.Slide
 import com.example.android.roomwordsample.R
-import com.example.android.roomwordsample.WordViewModel
-import com.example.android.roomwordsample.WordViewModelFactory
-import com.example.android.roomwordsample.application.WordsApplication
+import com.example.android.roomwordsample.WordsApplication
 import com.example.android.roomwordsample.database.Word
 import com.example.android.roomwordsample.databinding.FragmentWordBinding
 import com.example.android.roomwordsample.util.UtilMethods.hideKeyboard
 import com.example.android.roomwordsample.util.themeColor
+import com.example.android.roomwordsample.viewModels.WordViewModel
+import com.example.android.roomwordsample.viewModels.WordViewModelFactory
 import com.google.android.material.transition.MaterialContainerTransform
 
 class WordFragment : Fragment() {

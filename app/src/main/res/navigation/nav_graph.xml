@@ -14,20 +14,6 @@
             android:id="@+id/action_mainFragment_to_newWordFragment"
             app:destination="@id/wordFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_catsFragment"
-            app:destination="@id/catsFragment"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/slide_out" />
-        <action
-            android:id="@+id/action_mainFragment_to_marsOverviewFragment"
-            app:destination="@id/marsOverviewFragment"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/slide_out" />
-        <action
             android:id="@+id/action_mainFragment_to_newsFragment"
             app:destination="@id/newsFragment" />
     </fragment>
@@ -41,30 +27,6 @@
             app:destination="@id/mainFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/catsFragment"
-        android:name="com.example.android.roomwordsample.ui.CatsFragment"
-        android:label="NetworkFragment" />
-    <fragment
-        android:id="@+id/marsOverviewFragment"
-        android:name="com.example.android.roomwordsample.ui.MarsOverviewFragment"
-        android:label="MarsOverviewFragment">
-        <action
-            android:id="@+id/action_marsOverviewFragment_to_marsDetailFragment"
-            app:destination="@id/marsDetailFragment"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/slide_out" />
-    </fragment>
-    <fragment
-        android:id="@+id/marsDetailFragment"
-        android:name="com.example.android.roomwordsample.ui.MarsDetailFragment"
-        android:label="MarsDetailFragment">
-        <argument
-            android:name="selectedProperty"
-            app:argType="com.example.android.roomwordsample.network.apiMars.MarsProperty" />
     </fragment>
     <fragment
         android:id="@+id/newsFragment"

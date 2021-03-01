@@ -5,13 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.android.roomwordsample.network.apiNews.ApiInterface
-import com.example.android.roomwordsample.network.apiNews.NetworkRepository
 import com.example.android.roomwordsample.network.apiNews.models.ArticlesModel
+import com.example.android.roomwordsample.repositories.NetworkRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class TopStoriesViewModel : ViewModel() {
+@HiltViewModel
+class TopStoriesViewModel @Inject constructor() : ViewModel() {
 
     private val repository = NetworkRepository(ApiInterface())
 

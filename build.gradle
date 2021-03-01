@@ -1,6 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext.kotlin_version = "1.4.30"
+    ext.hilt_version = '2.28-alpha'
     repositories {
         google()
         jcenter()
@@ -8,6 +9,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
         def nav_version = "2.3.3"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
 
@@ -44,7 +46,7 @@ ext {
     multidexVersion = '1.0.3'
     navigationVersion = "2.3.3"
     picassoVersion = "2.71828"
-    recyclerVersion = "1.2.0-beta01"
+    recyclerVersion = "1.2.0-beta02"
     retrofitVersion = "2.9.0"
     retrofitGsonVersion = "2.9.0"
     roomVersion = '2.2.6'

@@ -27,14 +27,12 @@ abstract class WordRoomDatabase : RoomDatabase() {
         }
 
         suspend fun populateDatabase(wordDao: WordDao) {
-            // Delete all content here.
             wordDao.deleteAll()
 
-            // Add sample words.
             var word = Word("hello")
-            wordDao.insert(word)
+            wordDao.insertWordItem(word)
             word = Word("world!")
-            wordDao.insert(word)
+            wordDao.insertWordItem(word)
 
         }
     }

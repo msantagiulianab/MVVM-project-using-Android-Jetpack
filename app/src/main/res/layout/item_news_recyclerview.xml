@@ -53,7 +53,7 @@
             <TextView
                 android:id="@+id/date_news_item"
                 style="@style/date_item_news"
-                android:text="@string/jan_01_2020_01_00_am"
+                android:text="@string/jan_01_2021_01_00_am"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/title_news_item" />
 

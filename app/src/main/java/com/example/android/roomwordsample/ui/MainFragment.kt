@@ -20,13 +20,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.Slide
 import com.example.android.roomwordsample.R
-import com.example.android.roomwordsample.WordViewModel
-import com.example.android.roomwordsample.WordViewModelFactory
-import com.example.android.roomwordsample.application.WordsApplication
+import com.example.android.roomwordsample.WordsApplication
 import com.example.android.roomwordsample.databinding.FragmentMainBinding
 import com.example.android.roomwordsample.ui.adapters.WordListAdapter
 import com.example.android.roomwordsample.util.UtilMethods.hideKeyboard
 import com.example.android.roomwordsample.util.themeColor
+import com.example.android.roomwordsample.viewModels.WordViewModel
+import com.example.android.roomwordsample.viewModels.WordViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialSharedAxis
@@ -225,23 +226,18 @@ class MainFragment : Fragment() {
         }
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            val versionName =
-                wordViewModel.allWords.value!![viewHolder.absoluteAdapterPosition].word
-            Toast.makeText(
-                viewHolder.itemView.context,
-                "$versionName was DELETED",
-                Toast.LENGTH_SHORT
-            ).show()
-            wordViewModel.deleteItem(wordViewModel.allWords.value!![viewHolder.absoluteAdapterPosition])
+
+            val item = wordViewModel.allWords.value!![viewHolder.absoluteAdapterPosition]
+            wordViewModel.deleteItem(item)
+            Snackbar.make(requireView(), "Successfully deleted item", Snackbar.LENGTH_LONG).apply {
+                setAction("Undo") {
+                    wordViewModel.insert(item)
+                }
+                show()
+            }
             hideKeyboard(viewHolder.itemView)
 
         }
-
-        //            val trashBinIcon = ResourcesCompat.getDrawable(
-        //                resources,
-        //                R.drawable.ic_baseline_delete_24,
-        //                null
-        //            )
 
         override fun onChildDraw(
             c: Canvas,
@@ -277,30 +273,6 @@ class MainFragment : Fragment() {
                 c, recyclerView, viewHolder,
                 dX, dY, actionState, isCurrentlyActive
             )
-
-            //                c.clipRect(
-            //                    0f, viewHolder.itemView.top.toFloat(),
-            //                    dX, viewHolder.itemView.bottom.toFloat()
-            //                )
-            //
-            //                if (dX < c.width / 4)
-            //                    c.drawColor(Color.GRAY)
-            //                else c.drawColor(Color.RED)
-            //
-            //                val textMargin = resources.getDimension(R.dimen.text_margin)
-            //                    .roundToInt()
-            //
-            //                if (trashBinIcon != null) {
-            //                    trashBinIcon.bounds = Rect(
-            //                        textMargin,
-            //                        viewHolder.itemView.top + textMargin,
-            //                        textMargin + trashBinIcon.intrinsicWidth,
-            //                        viewHolder.itemView.top + trashBinIcon.intrinsicHeight
-            //                                + textMargin
-            //                    )
-            //                }
-            //                trashBinIcon?.draw(c)
-
         }
     }
 
@@ -328,12 +300,6 @@ class MainFragment : Fragment() {
             findNavController().navigate(action)
 
         }
-
-        //            val searchMagnifierIcon = ResourcesCompat.getDrawable(
-        //                resources,
-        //                R.drawable.ic_baseline_search_24,
-        //                null
-        //            )
 
         override fun onChildDraw(
             c: Canvas,
@@ -369,37 +335,6 @@ class MainFragment : Fragment() {
                 c, recyclerView, viewHolder,
                 dX, dY, actionState, isCurrentlyActive
             )
-
-            //                c.clipRect(
-            //                    dX, viewHolder.itemView.top.toFloat(),
-            //                    0f, viewHolder.itemView.bottom.toFloat()
-            //                )
-            //
-            //                if (dX > c.width / 4)
-            //                    c.drawColor(Color.GRAY)
-            //                else c.drawColor(Color.GREEN)
-            //
-            //                val textMargin = resources.getDimension(R.dimen.text_margin)
-            //                    .roundToInt()
-            //
-            //                if (searchMagnifierIcon != null) {
-            //                    searchMagnifierIcon.bounds = Rect(
-            //
-            //                        viewHolder.itemView.right - textMargin - searchMagnifierIcon.intrinsicWidth,
-            //                        viewHolder.itemView.top + textMargin,
-            //                        viewHolder.itemView.right - textMargin,
-            //                        viewHolder.itemView.top + searchMagnifierIcon.intrinsicHeight
-            //                                + textMargin
-            //
-            ////                        viewHolder.itemView.right - textMargin - searchMagnifierIcon.intrinsicWidth,
-            ////                        viewHolder.itemView.top + textMargin,
-            ////                        viewHolder.itemView.right - textMargin,
-            ////                        viewHolder.itemView.top + searchMagnifierIcon.intrinsicHeight
-            ////                                + textMargin
-            //                    )
-            //                }
-            //                searchMagnifierIcon?.draw(c)
-
         }
     }
 

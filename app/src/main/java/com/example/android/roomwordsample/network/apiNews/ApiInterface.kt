@@ -2,8 +2,8 @@ package com.example.android.roomwordsample.network.apiNews
 
 import com.example.android.roomwordsample.network.apiNews.models.ArticlesModel
 import com.example.android.roomwordsample.util.Constants.Companion.API_KEY_NEWS
+import com.example.android.roomwordsample.util.Constants.Companion.BASE_URL
 import com.example.android.roomwordsample.util.Constants.Companion.apiKey
-import com.example.android.roomwordsample.util.Constants.Companion.baseUrl
 import com.example.android.roomwordsample.util.Constants.Companion.category
 import com.example.android.roomwordsample.util.Constants.Companion.country
 import com.example.android.roomwordsample.util.Constants.Companion.pageSize
@@ -20,7 +20,7 @@ interface ApiInterface {
     companion object {
         operator fun invoke(): ApiInterface {
             return Retrofit.Builder()
-                .baseUrl(baseUrl)
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(ApiInterface::class.java)
