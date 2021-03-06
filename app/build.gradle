@@ -56,9 +56,13 @@ dependencies {
     implementation "androidx.core:core-ktx:$rootProject.corektxVersion"
     implementation "com.android.support:multidex:$rootProject.multidexVersion"
 
+    // Biometric
+    implementation "androidx.biometric:biometric-ktx:$rootProject.biometricVersion"
+
     // Room components
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
     implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
 
     // Lifecycle components
