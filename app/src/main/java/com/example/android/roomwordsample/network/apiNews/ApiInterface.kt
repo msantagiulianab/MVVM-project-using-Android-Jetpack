@@ -3,12 +3,6 @@ package com.example.android.roomwordsample.network.apiNews
 import com.example.android.roomwordsample.network.apiNews.models.ArticlesModel
 import com.example.android.roomwordsample.util.Constants.Companion.API_KEY_NEWS
 import com.example.android.roomwordsample.util.Constants.Companion.BASE_URL
-import com.example.android.roomwordsample.util.Constants.Companion.apiKey
-import com.example.android.roomwordsample.util.Constants.Companion.category
-import com.example.android.roomwordsample.util.Constants.Companion.country
-import com.example.android.roomwordsample.util.Constants.Companion.pageSize
-import com.example.android.roomwordsample.util.Constants.Companion.sortBy
-import com.example.android.roomwordsample.util.Constants.Companion.topHeadlines
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -36,28 +30,76 @@ interface ApiInterface {
         @Query("apiKey") apiKey: String = API_KEY_NEWS
     ): Response<ArticlesModel>
 
-    @GET("$topHeadlines$country=uk&$pageSize=100&$sortBy=publishedAt&$apiKey")
-    suspend fun getTopHeadlines(): Response<ArticlesModel>
+    @GET("top-headlines")
+    suspend fun getTopHeadlines(
+        @Query("country") country: String = "uk",
+        @Query("pageSize") pageSize: String = "100",
+        @Query("sortBy") sortBy: String = "publishedAt",
+        @Query("apiKey") apiKey: String = API_KEY_NEWS
+    ): Response<ArticlesModel>
 
-    @GET("$topHeadlines$category=technology&$country=uk&$pageSize=100&$sortBy=publishedAt&$apiKey")
-    suspend fun getArticles(): Response<ArticlesModel>
+    @GET("top-headlines")
+    suspend fun getArticles(
+        @Query("category") category: String = "technology",
+        @Query("country") country: String = "uk",
+        @Query("pageSize") pageSize: String = "100",
+        @Query("sortBy") sortBy: String = "publishedAt",
+        @Query("apiKey") apiKey: String = API_KEY_NEWS
+    ): Response<ArticlesModel>
 
-    @GET("$topHeadlines$category=technology&$country=uk&$pageSize=100&$sortBy=publishedAt&$apiKey")
-    suspend fun getTechnology(): Response<ArticlesModel>
 
-    @GET("$topHeadlines$category=entertainment&$country=uk&$pageSize=100&$sortBy=publishedAt&$apiKey")
-    suspend fun getEntertainment(): Response<ArticlesModel>
+    @GET("top-headlines")
+    suspend fun getTechnology(
+        @Query("category") category: String = "technology",
+        @Query("country") country: String = "uk",
+        @Query("pageSize") pageSize: String = "100",
+        @Query("sortBy") sortBy: String = "publishedAt",
+        @Query("apiKey") apiKey: String = API_KEY_NEWS
+    ): Response<ArticlesModel>
 
-    @GET("$topHeadlines$category=business&$country=uk&$pageSize=100&$sortBy=publishedAt&$apiKey")
-    suspend fun getBusiness(): Response<ArticlesModel>
+    @GET("top-headlines")
+    suspend fun getEntertainment(
+        @Query("category") category: String = "entertainment",
+        @Query("country") country: String = "uk",
+        @Query("pageSize") pageSize: String = "100",
+        @Query("sortBy") sortBy: String = "publishedAt",
+        @Query("apiKey") apiKey: String = API_KEY_NEWS
+    ): Response<ArticlesModel>
 
-    @GET("$topHeadlines$category=health&$country=uk&$pageSize=100&$sortBy=publishedAt&$apiKey")
-    suspend fun getHealth(): Response<ArticlesModel>
+    @GET("top-headlines")
+    suspend fun getBusiness(
+        @Query("category") category: String = "business",
+        @Query("country") country: String = "uk",
+        @Query("pageSize") pageSize: String = "100",
+        @Query("sortBy") sortBy: String = "publishedAt",
+        @Query("apiKey") apiKey: String = API_KEY_NEWS
+    ): Response<ArticlesModel>
 
-    @GET("$topHeadlines$category=science&$country=uk&$pageSize=100&$sortBy=publishedAt&$apiKey")
-    suspend fun getScience(): Response<ArticlesModel>
+    @GET("top-headlines")
+    suspend fun getHealth(
+        @Query("category") category: String = "health",
+        @Query("country") country: String = "uk",
+        @Query("pageSize") pageSize: String = "100",
+        @Query("sortBy") sortBy: String = "publishedAt",
+        @Query("apiKey") apiKey: String = API_KEY_NEWS
+    ): Response<ArticlesModel>
 
-    @GET("$topHeadlines$category=sports&$country=uk&$pageSize=100&$sortBy=publishedAt&$apiKey")
-    suspend fun getSports(): Response<ArticlesModel>
+    @GET("top-headlines")
+    suspend fun getScience(
+        @Query("category") category: String = "science",
+        @Query("country") country: String = "uk",
+        @Query("pageSize") pageSize: String = "100",
+        @Query("sortBy") sortBy: String = "publishedAt",
+        @Query("apiKey") apiKey: String = API_KEY_NEWS
+    ): Response<ArticlesModel>
+
+    @GET("top-headlines")
+    suspend fun getSports(
+        @Query("category") category: String = "sports",
+        @Query("country") country: String = "uk",
+        @Query("pageSize") pageSize: String = "100",
+        @Query("sortBy") sortBy: String = "publishedAt",
+        @Query("apiKey") apiKey: String = API_KEY_NEWS
+    ): Response<ArticlesModel>
 
 }
